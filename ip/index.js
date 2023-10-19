@@ -67,61 +67,63 @@ async function ipAdresimiAl() {
 
 //kodlar buraya gelecek
 
-function cardOlustur(ip) {
-  const urlCall = " https://apis.ergineer.com/ipgeoapi/" + ip;
-  axios
-    .get(urlCall)
-    .then(function (response) {
-      const data = response.data;
+function cardOlustur() {
+  ipAdresimiAl().then(() => {
+    const urlCall = " https://apis.ergineer.com/ipgeoapi/" + benimIP;
+    axios
+      .get(urlCall)
+      .then(function (response) {
+        const data = response.data;
 
-      const card = document.createElement("div");
-      card.className = "card";
+        const card = document.createElement("div");
+        card.className = "card";
 
-      const bayrakImg = document.createElement("img");
-      bayrakImg.src = "https://flagpedia.net/data/flags/w702/tr.webp";
+        const bayrakImg = document.createElement("img");
+        bayrakImg.src = "https://flagpedia.net/data/flags/w702/tr.webp";
 
-      const cardInfo = document.createElement("div");
-      cardInfo.className = "card-info";
+        const cardInfo = document.createElement("div");
+        cardInfo.className = "card-info";
 
-      const ipAdres = document.createElement("h3");
-      ipAdres.className = "ip";
-      ipAdres.textContent = Object.values(data)[0];
+        const ipAdres = document.createElement("h3");
+        ipAdres.className = "ip";
+        ipAdres.textContent = Object.values(data)[0];
 
-      const ulke = document.createElement("p");
-      ulke.className = "ulke";
-      ulke.textContent = `${Object.values(data)[3]} (${
-        Object.values(data)[4]
-      }) `;
+        const ulke = document.createElement("p");
+        ulke.className = "ulke";
+        ulke.textContent = `${Object.values(data)[3]} (${
+          Object.values(data)[4]
+        }) `;
 
-      const lokasyon = document.createElement("p");
-      lokasyon.textContent = `Enlem: ${Object.values(data)[10]} Boylam: ${
-        Object.values(data)[11]
-      }`;
+        const lokasyon = document.createElement("p");
+        lokasyon.textContent = `Enlem: ${Object.values(data)[10]} Boylam: ${
+          Object.values(data)[11]
+        }`;
 
-      const sehir = document.createElement("p");
-      sehir.textContent = `Şehir: ${Object.values(data)[8]}`;
+        const sehir = document.createElement("p");
+        sehir.textContent = `Şehir: ${Object.values(data)[8]}`;
 
-      const saat = document.createElement("p");
-      saat.textContent = `Saat Dilimi: ${Object.values(data)[12]}`;
+        const saat = document.createElement("p");
+        saat.textContent = `Saat Dilimi: ${Object.values(data)[12]}`;
 
-      const kur = document.createElement("p");
-      kur.textContent = `Para Birimi: ${Object.values(data)[13]}`;
+        const kur = document.createElement("p");
+        kur.textContent = `Para Birimi: ${Object.values(data)[13]}`;
 
-      const ispInfo = document.createElement("p");
-      ispInfo.textContent = `ISP: ${Object.values(data)[14]}`;
+        const ispInfo = document.createElement("p");
+        ispInfo.textContent = `ISP: ${Object.values(data)[14]}`;
 
-      card.append(bayrakImg, cardInfo);
-      cardInfo.append(ipAdres, ulke, lokasyon, sehir, saat, kur, ispInfo);
-      document.querySelector(".cards").append(card);
-    })
+        card.append(bayrakImg, cardInfo);
+        cardInfo.append(ipAdres, ulke, lokasyon, sehir, saat, kur, ispInfo);
+        document.querySelector(".cards").append(card);
+      })
 
-    .catch(function (error) {
-      console.error("Veri alınamadı", error);
-    })
+      .catch(function (error) {
+        console.error("Veri alınamadı", error);
+      })
 
-    .finally(() => {
-      console.log("Tamamlandı");
-    });
+      .finally(() => {
+        console.log("Tamamlandı");
+      });
+  });
 }
 
-cardOlustur("188.132.162.26");
+cardOlustur();
